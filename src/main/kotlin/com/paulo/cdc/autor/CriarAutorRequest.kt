@@ -1,8 +1,7 @@
 package com.paulo.cdc.autor
 
+import com.paulo.cdc.shared.UniqueValue
 import org.hibernate.validator.constraints.Length
-import java.time.LocalDate
-import javax.persistence.Column
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
 
@@ -16,6 +15,7 @@ class CriarAutorRequest(
         val descricao: String,
 
         @field:NotBlank(message = "email deve estar preenchido")
+        @field:UniqueValue(domainClass = Autor::class, fieldName = "email")
         @field:Email(message = "Email deve estar no formato correto")
         val email: String,
 ) {

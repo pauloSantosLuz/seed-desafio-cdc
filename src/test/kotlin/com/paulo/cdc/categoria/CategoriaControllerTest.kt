@@ -1,4 +1,4 @@
-package com.paulo.cdc.autor
+package com.paulo.cdc.categoria
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.Test
@@ -13,32 +13,30 @@ import java.net.URI
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AutorControllerTest {
+class CategoriaControllerTest{
+
 
     @Autowired
     lateinit var mockMvc: MockMvc
 
-    val autorRequest = CriarAutorRequest(
-        "Joao",
-        "autor de livros sobre meme",
-        "johndoe@example.com",
+    val categoriaRequest = CriarCategoriaRequest(
+        "UX",
     )
-
     @Test
-    fun `deve cadastrar um usuario ao acessar o endpoint autor com uma requisição HTTP post`() {
-        val uri = URI("/autores")
+    fun `deve cadastrar uma categoria`() {
+        val uri = URI("/categorias")
         val objectMapper = ObjectMapper()
-        val json = objectMapper.writeValueAsString(autorRequest)
+        val json = objectMapper.writeValueAsString(categoriaRequest)
 
         this.mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(201))
     }
 
     @Test
-    fun `não deve cadastrar um autor que possui um e-mail identico ao de um autor já cadastrado`() {
-        val uri = URI("/autores")
+    fun `não deve cadastrar uma categoria que possui uma descricao identica ao de uma descricao cadastrada`() {
+        val uri = URI("/categorias")
         val objectMapper = ObjectMapper()
-        val json = objectMapper.writeValueAsString(autorRequest)
+        val json = objectMapper.writeValueAsString(categoriaRequest)
 
         this.mockMvc.perform(MockMvcRequestBuilders.post(uri).content(json).contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.status().`is`(400))
