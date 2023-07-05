@@ -1,1 +1,1 @@
-delete from Autors;
+delete from Autor;
