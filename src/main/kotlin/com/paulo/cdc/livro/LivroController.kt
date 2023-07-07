@@ -14,7 +14,6 @@ class LivroController @Autowired constructor(
     private val livroRepository: LivroRepository,
     private val autorRepository: AutorRepository,
     private val categoriaRepository: CategoriaRepository,
-
     ) {
 
     @PostMapping

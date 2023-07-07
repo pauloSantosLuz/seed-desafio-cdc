@@ -2,6 +2,7 @@ package com.paulo.cdc.livro
 
 import com.paulo.cdc.autor.Autor
 import com.paulo.cdc.categoria.Categoria
+import java.math.BigDecimal
 import java.time.LocalDate
 import javax.persistence.*
 import javax.validation.constraints.Min
@@ -22,11 +23,11 @@ class Livro(
 
     @Column(nullable = false)
     @field:Min(20)
-    val preco: String,
+    val preco: BigDecimal,
 
     @Column(nullable = false)
     @field:Min(100)
-    val numeroDePaginas: String,
+    val numeroDePaginas: Long,
 
     @Column(nullable = false, unique = true)
     val isbn: String,
@@ -34,10 +35,10 @@ class Livro(
     @Column(nullable = false)
     val dataPublicacao: LocalDate,
 
-    @Column(nullable = false)
+    @ManyToOne
     val categoria: Categoria,
 
-    @Column(nullable = false)
+    @ManyToOne
     val autor: Autor
 ) {
     @Id
