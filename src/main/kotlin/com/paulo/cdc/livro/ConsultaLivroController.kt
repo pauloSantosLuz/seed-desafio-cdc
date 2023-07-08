@@ -8,13 +8,26 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/livros")
 class ConsultaLivroController @Autowired constructor(
-    private val livroRepository: LivroRepository,
-    ) {
+        private val livroRepository: LivroRepository,
+) {
 
     @GetMapping
-    fun obterLivros(): ResponseEntity<List<Livro>> {
+    fun obterLivros(): ResponseEntity<List<DetalheLivroResponse>> {
+        val livros = livroRepository.findAll()
 
-        return ResponseEntity.status(HttpStatus.CREATED)
-            .body(livroRepository.findAll())
+        val listaDeLivros = livros.map {
+            DetalheLivroResponse(it.titulo,
+                    it.resumo,
+                    it.sumario,
+                    it.preco,
+                    it.numeroDePaginas,
+                    it.isbn,
+                    it.dataPublicacao,
+                    it.categoria,
+                    it.autor)
+        }
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(listaDeLivros)
     }
 }
