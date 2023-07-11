@@ -13,4 +13,17 @@ class DetalheLivroResponse(val titulo: String,
                            val isbn: String,
                            val dataPublicacao: LocalDate,
                            val categoria: Categoria,
-                           val autor: Autor)
+                           val autor: Autor) {
+
+    constructor(livro: Livro) : this(livro.titulo,
+            livro.resumo,
+            livro.sumario,
+            livro.preco,
+            livro.numeroDePaginas,
+            livro.isbn,
+            livro.dataPublicacao,
+            livro.categoria,
+            livro.autor)
+
+
+}

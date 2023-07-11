@@ -16,18 +16,16 @@ class ConsultaLivroController @Autowired constructor(
         val livros = livroRepository.findAll()
 
         val listaDeLivros = livros.map {
-            DetalheLivroResponse(it.titulo,
-                    it.resumo,
-                    it.sumario,
-                    it.preco,
-                    it.numeroDePaginas,
-                    it.isbn,
-                    it.dataPublicacao,
-                    it.categoria,
-                    it.autor)
+            it.toDetalheLivroResponse()
         }
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(listaDeLivros)
+        return ResponseEntity.status(HttpStatus.OK).body(listaDeLivros)
+    }
+
+    @GetMapping("/id")
+    fun obterDetalheLivro(@PathVariable id: Long): ResponseEntity<DetalheLivroResponse> {
+        val livro = livroRepository.findById(id)
+
+        return ResponseEntity.status(HttpStatus.OK).body(livro.get().toDetalheLivroResponse())
     }
 }

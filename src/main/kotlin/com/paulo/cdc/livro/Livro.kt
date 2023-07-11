@@ -44,4 +44,8 @@ class Livro(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null
+
+    fun toDetalheLivroResponse(): DetalheLivroResponse {
+        return DetalheLivroResponse(this)
+    }
 }
